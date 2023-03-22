@@ -17,6 +17,7 @@ namespace ShortageApp.Views
         }
         public void Load()
         {
+            try {
                 List<Shortage> shortages = _shortageService.GetShortageByUser(_user);
                 Console.WriteLine($"Shortages found : {shortages.Count}");
                 Console.WriteLine("0. Go back\n");
@@ -31,7 +32,7 @@ namespace ShortageApp.Views
                 while (true)
                 {
                     Console.Clear();
-                    Console.WriteLine(shortages[choice-1].ToString() + "\n");
+                    Console.WriteLine(shortages[choice - 1].ToString() + "\n");
                     Console.WriteLine("Shortage menu\n");
                     Console.WriteLine("0. Go back\n" +
                                       "1. Delete shortage\n" +
@@ -45,12 +46,12 @@ namespace ShortageApp.Views
                         case 1:
                             while (true)
                             {
-                                Console.WriteLine("Delete selected shortage:" + shortages[choice-1].Title + "?\n" +
+                                Console.WriteLine("Delete selected shortage:" + shortages[choice - 1].Title + "?\n" +
                                     "0. Yes\n" +
                                     "1. No\n" +
                                     "Input your choice:");
                                 var answer = InputValidation.NumberInputValidation(Console.ReadLine(), 2, 0);
-                                if(answer == 1) break;
+                                if (answer == 1) break;
                                 else
                                 {
                                     try
@@ -64,7 +65,7 @@ namespace ShortageApp.Views
                                         Console.WriteLine("Shortage doesnt exist");
                                         InputValidation.PressAnyKey();
                                     }
-                                    catch(CantRemoveOthersShortagesException)
+                                    catch (CantRemoveOthersShortagesException)
                                     {
                                         Console.WriteLine("You cannot remove others users shortage");
                                         InputValidation.PressAnyKey();
@@ -74,7 +75,13 @@ namespace ShortageApp.Views
                             }
                             return;
                     }
-                }    
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Unexpected error occured");
+                InputValidation.PressAnyKey();
+            }
         }
     }
 }
