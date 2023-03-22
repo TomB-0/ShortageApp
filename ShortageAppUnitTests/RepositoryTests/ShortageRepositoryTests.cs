@@ -4,8 +4,6 @@ using ShortageApp.Helpers.Exceptions;
 using ShortageApp.Interfaces;
 using ShortageApp.Models;
 using ShortageApp.Repositories;
-using System;
-using System.Collections.Generic;
 
 
 namespace ShortageAppUnitTests.RepositoryTests
